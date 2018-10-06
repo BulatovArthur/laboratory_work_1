@@ -64,10 +64,8 @@ int main(){
         cout << el.Name << setw(10) << el.GroupId << "  math: " << el.Ratings["math"] << " physics: " << el.Ratings["physics"] << " political: "<< el.Ratings["political"] << " mean: " << el.mVal << endl;
 
     cout << "Поставили всем студентам хор по политологии! " << endl;
-    /*for (auto el : students)
-        el.Ratings.at("political") = 4;*/
-    for (int i = 0; i < 6; i++)
-        students[i].Ratings.at("political") = 4;
+    for (auto &el : students)
+        el.Ratings.at("political") = 4;
     for (auto el : students)
         cout << el.Name << setw(10) << el.GroupId << "  math: " << el.Ratings["math"] << " physics: " << el.Ratings["physics"] << " political: "<< el.Ratings["political"] << " mean: " << el.mVal << endl;
 
