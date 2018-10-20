@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cstdio>
 #include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -40,14 +41,11 @@ multimap<string, Entity> load(const string &filename){
 }
 
 vector<Entity> suggest(const Dict &dict, const string &current_word) {
-    auto it = dict.find(current_word);
-
     vector<Entity> entity;
 
-    entity.push_back(it->second);
-    it++;
+    auto result = dict.equal_range(current_word);
 
-    for (auto i = 1; i != dict.count(current_word); i++, it++)
+    for (auto it = result.first; it != result.second; ++it)
         entity.push_back(it->second);
 
     sort(entity.begin(), entity.end(), [](const Entity &s1, const Entity &s2){
@@ -60,7 +58,7 @@ vector<Entity> suggest(const Dict &dict, const string &current_word) {
 int main() {
     auto dict = load("dictionary.txt");
 
-    auto result = suggest(dict, "добрый");
+    auto result = suggest(dict, "спокойной");
 
     cout << "result == ";
 
